@@ -1,0 +1,430 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+#loading-screen {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: black;
+}
+
+#loading-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#main-menu {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-image: url('../assets/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    display: none;
+}
+
+.menu-container {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    min-width: 320px;
+    padding: 35px;
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+.menu-button {
+    background: linear-gradient(
+        to bottom,
+        rgba(75, 75, 75, 0.7) 0%,
+        rgba(65, 65, 65, 0.7) 100%
+    );
+    color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(90, 90, 90, 0.3);
+    padding: 16px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border-radius: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.menu-button:hover {
+    background: linear-gradient(
+        to bottom,
+        rgba(85, 85, 85, 0.8) 0%,
+        rgba(75, 75, 75, 0.8) 100%
+    );
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(100, 100, 100, 0.4);
+}
+
+.menu-button:active {
+    transform: translateY(0);
+    background: linear-gradient(
+        to bottom,
+        rgba(65, 65, 65, 0.7) 0%,
+        rgba(55, 55, 55, 0.7) 100%
+    );
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Popup Styles */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.popup {
+    background: linear-gradient(
+        to bottom,
+        rgba(40, 40, 40, 0.95) 0%,
+        rgba(30, 30, 30, 0.95) 100%
+    );
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 80%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.popup h2 {
+    color: #fff;
+    margin: 0 0 20px 0;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.popup-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.popup-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.popup-button.confirm {
+    background: rgba(180, 180, 180, 0.9);
+    color: #000;
+}
+
+.popup-button.cancel {
+    background: rgba(60, 60, 60, 0.9);
+    color: #fff;
+}
+
+.popup-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.popup-button:active {
+    transform: translateY(0);
+}
+
+/* Settings Popup Styles */
+.settings-popup {
+    max-width: 500px;
+    width: 90%;
+}
+
+.settings-container {
+    color: #fff;
+    text-align: left;
+}
+
+.settings-section {
+    margin-bottom: 25px;
+}
+
+.settings-section h3 {
+    color: #fff;
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 500;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 5px 0;
+}
+
+.setting-item label {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 200px;
+}
+
+input[type="range"] {
+    flex-grow: 1;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.slider-value {
+    min-width: 45px;
+    text-align: right;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.settings-button {
+    background: rgba(60, 60, 60, 0.6);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.settings-button:hover {
+    background: rgba(80, 80, 80, 0.8);
+}
+
+.settings-select {
+    background: rgba(60, 60, 60, 0.6);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    min-width: 150px;
+}
+
+.settings-select option:disabled {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Profile Popup Styles */
+.profile-popup {
+    max-width: 500px;
+}
+
+.profile-container {
+    color: #fff;
+    text-align: left;
+    padding: 20px 0;
+}
+
+.profile-section {
+    margin-bottom: 20px;
+}
+
+.profile-section label {
+    display: block;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+}
+
+#profileName {
+    width: 100%;
+    padding: 10px;
+    background: rgba(60, 60, 60, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+}
+
+#profileName:focus {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.avatar-selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 10px;
+    padding: 10px 0;
+}
+
+.avatar-container {
+    width: 180px;
+    height: 180px;
+}
+
+.avatar-option {
+    width: 100%;
+    height: 100%;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.avatar-option.selected {
+    border-color: #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.avatar-option img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-nav-button {
+    background: rgba(60, 60, 60, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.avatar-nav-button:hover {
+    background: rgba(80, 80, 80, 0.8);
+    transform: scale(1.1);
+}
+
+.avatar-nav-button:active {
+    transform: scale(0.95);
+}
+
+#createProfile:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Oyun Ekranı Styles */
+#game-screen {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: url('../assets/images/office-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: none;
+}
+
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.table {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 30%;
+    background: url('../assets/images/table-image.png') no-repeat center center;
+    background-size: contain;
+}
+
+.files {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    top: 10%;
+    width: 100%;
+}
+
+.file {
+    width: 15%;
+    height: 20%;
+    background: url('../assets/images/file-image.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.tablet {
+    position: absolute;
+    bottom: 10%;
+    right: 10%;
+    width: 20%;
+    height: 30%;
+    background: url('../assets/images/tablet-image.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}

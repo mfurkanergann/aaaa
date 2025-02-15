@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oyun</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/brightness.css">
+</head>
+<body>
+    <!-- Audio Element -->
+    <audio id="backgroundMusic" loop>
+        <source src="assets/audio/background-music.mp3" type="audio/mp3">
+        Tarayıcınız audio elementini desteklemiyor.
+    </audio>
+
+    <!-- Yükleme Ekranı -->
+    <div id="loading-screen">
+        <video id="loading-video" muted playsinline preload="auto" autoplay>
+            <source src="assets/videos/loading.mp4" type="video/mp4">
+            Video yüklenemedi.
+        </video>
+    </div>
+
+    <!-- Ana Menü -->
+    <div id="main-menu">
+        <div class="menu-container">
+            <button class="menu-button" id="continue">Devam Et</button>
+            <button class="menu-button" id="newGame">Yeni Oyun</button>
+            <button class="menu-button" id="howToPlay">Nasıl Oynanır</button>
+            <button class="menu-button" id="settings">Ayarlar</button>
+            <button class="menu-button" id="exit">Çıkış</button>
+        </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup-overlay" id="exitPopup">
+        <div class="popup">
+            <h2>Çıkış Yap</h2>
+            <p style="color: #fff; margin-bottom: 20px;">Oyundan çıkmak istediğinize emin misiniz?</p>
+            <div class="popup-buttons">
+                <button class="popup-button cancel" id="cancelExit">İptal</button>
+                <button class="popup-button confirm" id="confirmExit">Çıkış Yap</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Popup -->
+    <div class="popup-overlay" id="settingsPopup">
+        <div class="popup settings-popup">
+            <h2>Ayarlar</h2>
+            <div class="settings-container">
+                <!-- Görüntü Ayarları -->
+                <div class="settings-section">
+                    <h3>Görüntü</h3>
+                    <div class="setting-item">
+                        <label>Ekran Modu</label>
+                        <button class="settings-button" id="toggleFullscreen">Tam Ekran</button>
+                    </div>
+                    <div class="setting-item">
+                        <label>Parlaklık</label>
+                        <div class="slider-container">
+                            <input type="range" id="brightnessSlider" min="0" max="100" value="100">
+                            <span class="slider-value">100%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ses Ayarları -->
+                <div class="settings-section">
+                    <h3>Ses</h3>
+                    <div class="setting-item">
+                        <label>Müzik Sesi</label>
+                        <div class="slider-container">
+                            <input type="range" id="musicSlider" min="0" max="100" value="80">
+                            <span class="slider-value">80%</span>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label>Efekt Sesi</label>
+                        <div class="slider-container">
+                            <input type="range" id="effectsSlider" min="0" max="100" value="100">
+                            <span class="slider-value">100%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dil Ayarları -->
+                <div class="settings-section">
+                    <h3>Dil</h3>
+                    <div class="setting-item">
+                        <label>Oyun Dili</label>
+                        <select id="languageSelect" class="settings-select">
+                            <option value="tr" selected>Türkçe</option>
+                            <option value="en" disabled>English</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-buttons">
+                <button class="popup-button cancel" id="cancelSettings">Kapat</button>
+                <button class="popup-button confirm" id="saveSettings">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Profile Popup -->
+    <div class="popup-overlay" id="createProfilePopup">
+        <div class="popup profile-popup">
+            <h2>Profil Oluştur</h2>
+            <div class="profile-container">
+                <div class="profile-section">
+                    <label for="profileName">Profil Adı</label>
+                    <input type="text" id="profileName" maxlength="20" placeholder="Profil adınızı girin">
+                </div>
+                <div class="profile-section">
+                    <label>Profil Resmi</label>
+                    <div class="avatar-selection">
+                        <button class="avatar-nav-button prev" id="prevAvatar">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <div class="avatar-container">
+                            <div class="avatar-option">
+                                <img src="assets/images/avatars/avatar1.png" alt="Avatar 1" data-avatar="avatar1">
+                            </div>
+                        </div>
+                        <button class="avatar-nav-button next" id="nextAvatar">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-buttons">
+                <button class="popup-button cancel" id="cancelProfile">İptal</button>
+                <button class="popup-button confirm" id="createProfile" disabled>Oluştur</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Oyun Ekranı -->
+    <div id="game-screen" style="display: none;">
+        <div class="scene">
+            <div class="background">
+                <div class="table">
+                    <div class="files">
+                        <div class="file" id="file1">Dosya 1</div>
+                        <div class="file" id="file2">Dosya 2</div>
+                        <div class="file" id="file3">Dosya 3</div>
+                    </div>
+                    <div class="tablet" id="tablet">Tablet</div>
+                </div>
+            </div>
+            <button class="back-button" id="backButton">Geri Dön</button>
+        </div>
+    </div>
+
+    <script src="js/audio.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
